@@ -3,7 +3,8 @@ package com.unomaster.pokedexgame.ui
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun MultipleChoiceItem(
@@ -22,14 +24,17 @@ fun MultipleChoiceItem(
 ) {
     val textColor = if (isSystemInDarkTheme()) Color.Black else Color.White
 
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.padding(12.dp)
-            .border(2.dp, Color.LightGray, RoundedCornerShape(4.dp))
-            .padding(36.dp, 24.dp)
-            .defaultMinSize(minWidth = 100.dp).clickable {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .clickable {
                 onClick(value)
             }
+            .padding(12.dp)
+            .border(2.dp, Color.LightGray, RoundedCornerShape(4.dp))
+            .padding(36.dp, 24.dp)
+            .defaultMinSize(minWidth = 100.dp)
     ) {
         Text(
             value,

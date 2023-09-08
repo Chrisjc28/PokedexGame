@@ -13,6 +13,7 @@ object NetworkDependencies {
     fun provideCustomJson(): Json {
         return Json {
             ignoreUnknownKeys = true
+            prettyPrint = true
         }
     }
 

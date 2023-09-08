@@ -7,7 +7,7 @@ plugins {
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    android()
+    androidTarget()
 
     listOf(
         iosX64(),

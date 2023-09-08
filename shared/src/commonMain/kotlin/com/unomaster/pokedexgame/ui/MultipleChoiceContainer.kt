@@ -7,12 +7,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.unomaster.pokedexgame.domain.PokemonUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
@@ -27,7 +25,7 @@ fun MultipleChoiceContainer(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                MultipleChoiceItem(multipleChoiceList[0], onClick)
+                MultipleChoiceItem(multipleChoiceList[0], onClick )
                 MultipleChoiceItem(multipleChoiceList[1], onClick)
             }
             Row(
