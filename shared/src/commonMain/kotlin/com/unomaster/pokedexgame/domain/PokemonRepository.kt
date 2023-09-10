@@ -87,6 +87,6 @@ class PokemonRepository(
             )
         }
 
-        return multipleChoices.shuffled()
+        return multipleChoices.shuffled(Random)
     }
 }

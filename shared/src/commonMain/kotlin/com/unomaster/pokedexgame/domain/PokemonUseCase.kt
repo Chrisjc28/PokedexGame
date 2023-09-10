@@ -3,6 +3,7 @@ package com.unomaster.pokedexgame.domain
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import com.unomaster.pokedexgame.domain.models.CombinedPokemonResponse
+import com.unomaster.pokedexgame.domain.network.NetworkDependencies
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,7 @@ class PokemonUseCase(
     private val pokemonRepository: PokemonRepository = PokemonRepository(),
     scope: CoroutineScope
 ) {
-    private val _pokemonRequest = MutableStateFlow<String?>(null)
+    private val _pokemonRequest = MutableStateFlow<String>(NetworkDependencies.baseUrl)
 
     val _winner = MutableStateFlow<Boolean>(false)
     val _overlay = MutableStateFlow<ColorFilter?>(ColorFilter.tint(Color.LightGray))
@@ -24,11 +25,7 @@ class PokemonUseCase(
     @OptIn(ExperimentalCoroutinesApi::class)
     val pokemonRequest: StateFlow<Result<CombinedPokemonResponse, String>> =
         _pokemonRequest.flatMapLatest {
-            if (it != null) {
-                pokemonRepository.fetchPokemon(it)
-            } else {
-                throw NullPointerException()
-            }
+            pokemonRepository.fetchPokemon(it)
         }.stateIn(
             scope,
             SharingStarted.WhileSubscribed(5000),
