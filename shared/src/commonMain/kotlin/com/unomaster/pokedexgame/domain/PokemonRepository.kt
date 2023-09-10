@@ -1,10 +1,8 @@
 package com.unomaster.pokedexgame.domain
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.toUpperCase
 import com.unomaster.pokedexgame.domain.models.CombinedPokemonResponse
 import com.unomaster.pokedexgame.domain.models.PokemonApiResponse
 import com.unomaster.pokedexgame.domain.models.PokemonDetailsResponse
@@ -76,9 +74,19 @@ class PokemonRepository(
     private fun getMultipleChoiceList(
         pokemonApiResponse: PokemonApiResponse,
         pokemonDetailsName: String
-    ) = pokemonApiResponse.results.filter {
-        it.name == pokemonDetailsName
-    }.map { it.name.capitalize(Locale.current) }.distinct() + pokemonApiResponse.results.subList(0, 4).map {
-        it.name.capitalize(Locale.current)
-    }.distinct()
+    ): List<String> {
+        val groupedResults = pokemonApiResponse.results.groupBy { it.name == pokemonDetailsName }
+
+        val multipleChoices = groupedResults.getOrElse(false) { emptyList() }.map {
+            it.name.capitalize(
+                Locale.current
+            )
+        }.subList(0, 3) + groupedResults.getOrElse(true) { emptyList() }.map {
+            it.name.capitalize(
+                Locale.current
+            )
+        }
+
+        return multipleChoices.shuffled()
+    }
 }
