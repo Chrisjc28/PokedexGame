@@ -37,6 +37,8 @@ kotlin {
 
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
+                implementation("dev.chrisbanes.material3:material3-window-size-class-multiplatform:0.3.1")
+
             }
         }
         val androidMain by getting {
